@@ -30,11 +30,17 @@ describe("Controls.js", () => {
       expect(lockGateButton.textContent).toBe("Unlock Gate");
     });
   });
-  describe("Check if toggle buttons show disabled", () => {
-    it("closed toggle button should be disabed if gate is closed", () => {
-      const { getByText } = render(<Dashboard />);
-      const closeGateButton = getByText("Close Gate");
-      expect(closeGateButton.textContent).toBe("Close Gate");
+  describe("check for disabled buttons", () => {
+    it("close button should be disabled if gate is closed and locked", () => {
+      const { getByText } = render(<Controls locked={true} closed={true} />);
+      expect(getByText("Unlock Gate").hasAttribute("disabled")).toBeFalsy();
+      expect(getByText("Open Gate").hasAttribute("disabled")).toBeTruthy();
+    });
+
+    it("lock button should be disabled if gate is open", () => {
+      const { getByText } = render(<Controls closed={false} />);
+      expect(getByText("Close Gate").hasAttribute("disabled")).toBeFalsy();
+      expect(getByText("Lock Gate").hasAttribute("disabled")).toBeTruthy();
     });
   });
 });
