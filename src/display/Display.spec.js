@@ -37,4 +37,26 @@ describe("Display.js", () => {
       getByText("Unlocked");
     });
   });
+  describe("class test", () => {
+    it("when locked use the red-led class", () => {
+      const locked = true;
+      const { getByText } = render(<Display locked={locked} />);
+      expect(getByText("Locked")).toHaveClass("red-led");
+    });
+    it("when closed use the red-led class", () => {
+      const closed = true;
+      const { getByText } = render(<Display closed={closed} />);
+      expect(getByText("Closed")).toHaveClass("red-led");
+    });
+    it("when unlocked use the green-led class", () => {
+      const locked = false;
+      const { getByText } = render(<Display locked={locked} />);
+      expect(getByText("Unlocked")).toHaveClass("green-led");
+    });
+    it("when opened use the red-led class", () => {
+      const closed = false;
+      const { getByText } = render(<Display closed={closed} />);
+      expect(getByText("Open")).toHaveClass("green-led");
+    });
+  });
 });
